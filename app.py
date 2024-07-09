@@ -4,6 +4,7 @@ from langchain_google_genai import GoogleGenerativeAI
 import uvicorn
 import os
 
+
 from dotenv import load_dotenv
 import json
 
@@ -19,6 +20,7 @@ app=FastAPI(
 
 # Example model or handler for Google Gemini
 model  = GoogleGenerativeAI(model="gemini-1.5-pro-latest", google_api_key=google_api_key)
+
 
 # Route for essay prompt with Gemini model
 @app.get("/essay")
