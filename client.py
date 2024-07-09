@@ -19,9 +19,8 @@ def generate_essay(topic):
     else:
         return {"error": f"Failed to generate essay. Status code: {response.status_code}"}
 
-
 # Streamlit UI
-st.title('Langchain AI Generator with Gemini LLM')
+st.title('FastAPI Server with Google Generative AI Integration using Langchain')
 
 # Essay Generation Section
 st.header('Generate Essay')
