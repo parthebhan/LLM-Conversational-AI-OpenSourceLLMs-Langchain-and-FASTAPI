@@ -1,69 +1,73 @@
-# FastAPI Server with Google Generative AI Integration
+# **Extending Conversational AI: Open Source LLMs, Langchain, and FASTAPI**
 
+# app.py
 
-# 1. App.Py
+## Purpose:
+The Python script sets up a FastAPI server that integrates with Google's Generative AI (Gemini model) and Groq to generate responses based on user queries.
 
-### Purpose:
-The Python script sets up a FastAPI server that integrates with Google's Generative AI (Gemini model) to generate essays based on user-provided topics.
-
-### Libraries Used:
+## Libraries Used:
 - `FastAPI`: For building the API endpoints and server.
 - `langchain.prompts.ChatPromptTemplate`: Template for generating prompts.
 - `langchain_google_genai.GoogleGenerativeAI`: Interface for using Google's Generative AI models.
+- `langchain_groq.ChatGroq`: Interface for using Groq models.
+- `groq.Groq`: Groq client for API interactions.
 - `uvicorn`: ASGI server for running FastAPI applications.
-- `os`: For environment variables (`GOOGLE_API_KEY`) management.
+- `os`: For environment variables (`GOOGLE_API_KEY`, `GROQ_API_KEY`) management.
 - `dotenv`: For loading environment variables from a `.env` file.
 - `json`: For handling JSON data.
 
-### Components of the Script:
+## Components of the Script:
 
-1. **Loading Environment Variables**:
-   - The script uses `dotenv` to load environment variables, particularly `GOOGLE_API_KEY` which is required for authentication with Google's API.
+### 1. Loading Environment Variables:
+   - Uses `dotenv` to load environment variables (`GOOGLE_API_KEY` and `GROQ_API_KEY`).
 
-2. **FastAPI Application Setup**:
-   - Initializes a FastAPI application named "Langchain Server" with version 1.0 and a description indicating it's a simple API server.
+### 2. FastAPI Application Setup:
+   - Initializes a FastAPI application named "Langchain Server" with version 1.1 and a description indicating it's a simple API Server.
 
-3. **Google Generative AI Model Initialization**:
-   - Creates an instance of `GoogleGenerativeAI` model (`gemini-1.5-pro-latest`) using the `google_api_key` obtained from the environment variables.
+### 3. Model Initialization:
+   - Initializes **`GoogleGenerativeAI` model (`gemini-1.5-pro-latest`)** and **`ChatGroq` model (`llama3-8b-8192`)** using the respective API keys obtained from environment variables.
 
-4. **API Endpoint for Essay Generation (`/essay`)**:
-   - Defines a GET endpoint `/essay` that accepts a query parameter `topic` (mandatory) which specifies the essay topic.
-   - Constructs a prompt (`prompt`) using the provided topic to generate an essay prompt with a length of 2000 words.
-   - Utilizes the `generate` method of the `GoogleGenerativeAI` model to generate essay content based on the prompt.
-   - Returns the generated essay content as the HTTP response.
+### 4. API Endpoints:
+   - `/chat_google`: GET endpoint that generates responses using Google's Generative AI based on user queries.
+   - `/chat_groq`: GET endpoint that generates responses using Groq based on user queries.
 
-5. **Server Execution**:
-   - If the script is run directly (`__name__ == "__main__"`), it starts the FastAPI server using `uvicorn`, specifying `localhost` as the host and `8000` as the port.
+### 5. Server Execution:
+   - If the script is run directly (`__name__ == "__main__"`), starts the FastAPI server using `uvicorn` on `localhost:8000`.
 
-### Usage:
+## Usage:
 To use the script:
-- Ensure Python dependencies (`FastAPI`, `uvicorn`, `langchain`, `langchain_google_genai`, `dotenv`) are installed.
-- Obtain a Google API key (`GOOGLE_API_KEY`) and store it in a `.env` file.
-- Run the script using `uvicorn script_name:app --reload` in the terminal.
-- Navigate to `http://localhost:8000/docs` to generate an essay on the specified topic.
-
-This markdown document provides a clear overview of how the FastAPI server integrates with Google's Generative AI to dynamically generate essays based on user-provided topics, demonstrating its setup, usage, and key components.
-
-
-# 2. Client.py
-
-## Purpose
-This Streamlit application interacts with a FastAPI server that integrates with Google's Generative AI (Gemini model) to generate essays based on user-provided topics.
-
-## Components of the Script
-
-### Functionality
-The application allows users to input a topic for which they want to generate an essay. It communicates with a FastAPI server hosted at a specified URL (`BASE_URL`) to obtain the generated essay using the provided topic.
-
-### User Interface
-- **Title**: Displays a title indicating the integration of FastAPI with Google's Generative AI using Langchain.
-- **Essay Generation Section**: Provides a header and an input field where users can enter the topic for the essay.
-- **Generate Essay Button**: Initiates the essay generation process when clicked.
-- **Error Handling**: Displays appropriate error messages if there are issues with generating the essay.
-- **Success Message**: Shows the generated essay upon successful retrieval from the FastAPI server.
+- Ensure Python dependencies (`FastAPI`, `uvicorn`, `langchain`, `langchain_google_genai`, `langchain_groq`, `dotenv`) are installed.
+- Obtain Google and Groq API keys (`GOOGLE_API_KEY` and `GROQ_API_KEY`) and store them in a `.env` file.
+- Run the script using `uvicorn app:app --reload` in the terminal.
+- Navigate to `http://localhost:8000/docs` to interact with the API endpoints.
 
 ---
 
+# client.py
+
+## Purpose:
+This Streamlit application interacts with a FastAPI server that integrates with Google's Generative AI (Gemini model) and Groq to generate responses based on user queries.
+
+## Components of the Script:
+
+### 1. Functionality:
+   - Allows users to input queries to generate responses using Google's Generative AI and Groq via a FastAPI server.
+   - Communicates with the FastAPI server hosted at `BASE_URL` (`http://localhost:8000`).
+
+### 2. User Interface:
+   - **Title**: Displays a title indicating the integration of conversational AI models and FastAPI.
+   - **Chat with Google Generative AI**: Section for users to input queries and generate responses using Google's Generative AI.
+   - **Chat with Groq**: Section for users to input queries and generate responses using Groq.
+   - **Response Time**: Displays the time taken for the server to generate responses.
+   - **Error Handling**: Displays appropriate error messages if there are issues with generating responses.
+
+## Usage:
+To use the Streamlit application:
+- Ensure Python dependencies (`streamlit`, `requests`, `time`) are installed.
+- Run the Streamlit application using `streamlit run app_streamlit.py` in the terminal.
+- Interact with the UI to input queries and generate responses using Google's Generative AI or Groq via the FastAPI server.
+
+---
 
 ## 🔗 Connect with Me
 
