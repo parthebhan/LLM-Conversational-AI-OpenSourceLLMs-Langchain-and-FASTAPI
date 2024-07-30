@@ -8,7 +8,7 @@ import time
 BASE_URL = 'http://localhost:8000'
 
 def generate_essay(topic):
-    url = f"{BASE_URL}/chat_google"
+    url = f"{BASE_URL}/essay_google"
     params = {'topic': topic}
     start_time = time.time()
     response = requests.get(url, params=params)
@@ -27,7 +27,7 @@ def generate_essay(topic):
         return {"error": f"Failed to generate essay. Status code: {response.status_code}"}, response_time
 
 def generate_essay_groq(topic):
-    url = f"{BASE_URL}/chat_groq"
+    url = f"{BASE_URL}/essay_groq"
     params = {'topic': topic}
     start_time = time.time()
     response = requests.get(url, params=params)

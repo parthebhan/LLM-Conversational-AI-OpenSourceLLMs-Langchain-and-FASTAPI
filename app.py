@@ -30,8 +30,8 @@ app=FastAPI(
 model_google  = GoogleGenerativeAI(model="gemini-1.5-pro-latest", google_api_key=google_api_key)
 
 
-# Define API endpoint to enerate responses using Google's Generative AI
-@app.get("/chat_google")
+# Define API endpoint to generate responses using Google's Generative AI
+@app.get("/essay_google")
 async def essay_prompt(topic: str = Query(..., description="Topic for the essay")):
     # Generate essay using GoogleGenerativeAI model
     prompt = f"Write me an essay about {topic} with 2000 words."
@@ -39,7 +39,7 @@ async def essay_prompt(topic: str = Query(..., description="Topic for the essay"
     return essay_content
 
 # Define API endpoint to generate responses using Groq
-@app.get("/chat_groq")
+@app.get("/essay_groq")
 async def essay_prompt_groq(topic: str = Query(..., description="Topic for the essay")):
     chat_completion = client.chat.completions.create(messages=[{"role": "user","content": topic,}],model="llama3-8b-8192",)
     return chat_completion.choices[0].message.content
