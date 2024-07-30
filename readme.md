@@ -1,5 +1,9 @@
 # **Extending Conversational AI: Open Source LLMs, Langchain, and FASTAPI**
 
+## LLM Models:
+- `1. Gemini-1.5-pro-latest`
+- `2. Llama3-8b-8192`
+
 # app.py
 
 ## Purpose:

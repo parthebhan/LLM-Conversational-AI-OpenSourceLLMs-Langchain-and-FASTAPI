@@ -1,6 +1,6 @@
 # app_streamlit.py
 
-import chatgroq as st
+import streamlit as st
 import requests
 import time
 
@@ -8,7 +8,7 @@ import time
 BASE_URL = 'http://localhost:8000'
 
 def generate_essay(topic):
-    url = f"{BASE_URL}/essay"
+    url = f"{BASE_URL}/chat_google"
     params = {'topic': topic}
     start_time = time.time()
     response = requests.get(url, params=params)
@@ -27,7 +27,7 @@ def generate_essay(topic):
         return {"error": f"Failed to generate essay. Status code: {response.status_code}"}, response_time
 
 def generate_essay_groq(topic):
-    url = f"{BASE_URL}/essay_groq"
+    url = f"{BASE_URL}/chat_groq"
     params = {'topic': topic}
     start_time = time.time()
     response = requests.get(url, params=params)
@@ -44,12 +44,12 @@ def generate_essay_groq(topic):
         return {"error": f"Failed to generate essay using Groq. Status code: {response.status_code}"}, response_time
 
 # Streamlit UI
-st.title('Extending Conversational AI: Open Source LLMs, Langchain, and FASTAPI')
+st.title('Extending Conversational AI: Open Source LLMs, Langchain, and FastAPI')
 
 # Essay Generation Section with Google Generative AI
-st.header('Chat with Google Generative AI')
-essay_topic = st.text_input('Enter the query.')
-if st.button('Generate Essay (Google Generative AI)'):
+st.header('Generate essay with Gemini')
+essay_topic = st.text_input('')
+if st.button('Gemini_Search'):
     if essay_topic:
         essay_result, response_time = generate_essay(essay_topic)
         if 'error' in essay_result:
@@ -58,14 +58,14 @@ if st.button('Generate Essay (Google Generative AI)'):
             st.success(f"Generated Essay (Response Time: {response_time:.4f} seconds):")
             st.write(essay_result)
     else:
-        st.warning("Please enter your query")
+        st.warning("Please enter your topic")
 
 st.markdown('---')
 
 # Essay Generation Section with Groq
-st.header('Chat with Groq')
-essay_topic_groq = st.text_input('Enter the query')
-if st.button('Generate Essay (Groq)'):
+st.header('Generate essay with Groq (Llama-3)')
+essay_topic_groq = st.text_input(' ')
+if st.button('Groq_Search'):
     if essay_topic_groq:
         essay_result_groq, response_time = generate_essay_groq(essay_topic_groq)
         if 'error' in essay_result_groq:
@@ -74,4 +74,4 @@ if st.button('Generate Essay (Groq)'):
             st.success(f"Generated Essay (Response Time: {response_time:.4f} seconds):")
             st.write(essay_result_groq)
     else:
-        st.warning("Please enter your query")
+        st.warning("Please enter your topic")
